@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+  <meta charset='UTF-8'>
+  <meta http-equiv='refresh' content='5'>
+  <title>ChargeGrid — Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif;
+           background: #0d1117; color: #e6edf3; min-height: 100vh; }
+    .header { background: #161b22; border-bottom: 2px solid #30363d;
+              padding: 20px 30px; display:flex;
+              justify-content:space-between; align-items:center; }
+    .header h1 { font-size: 1.6rem; color: #58a6ff; }
+    .header h1 span { color: #3fb950; }
+    .badge { background:#21262d; border:1px solid #30363d;
+             padding:6px 14px; border-radius:20px;
+             font-size:0.82rem; color:#8b949e; }
+    .badge b { color:#e6edf3; }
+    .container { padding: 24px 30px; }
+    /* Cards de resumo no topo */
+    .cards { display:grid; grid-template-columns:repeat(4,1fr);
+             gap:16px; margin-bottom:24px; }
+    .card { background:#161b22; border:1px solid #30363d;
+            border-radius:10px; padding:18px 20px; }
+    .card .label { font-size:0.75rem; color:#8b949e;
+                   text-transform:uppercase; letter-spacing:1px; }
+    .card .value { font-size:2rem; font-weight:700;
+                   margin-top:6px; color:#58a6ff; }
+    .card .sub   { font-size:0.8rem; color:#8b949e; margin-top:4px; }
+    /* Barra de demanda */
+    .demanda-box { background:#161b22; border:1px solid #30363d;
+                   border-radius:10px; padding:18px 20px;
+                   margin-bottom:24px; }
+    .demanda-box h3 { font-size:0.85rem; color:#8b949e;
+                      text-transform:uppercase; margin-bottom:10px; }
+    .bar-bg { background:#21262d; border-radius:8px; height:22px;
+              overflow:hidden; }
+    .bar-fill { height:100%; border-radius:8px;
+                background:#27ae60; transition:width 0.5s;
+                display:flex; align-items:center;
+                justify-content:center; font-size:0.8rem;
+                font-weight:700; color:#fff;
+                width:15%; min-width:30px; }
+    /* Grid de vagas */
+    .vagas-grid { display:grid;
+                  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+                  gap:16px; }
+    .vaga { background:#161b22; border:1px solid #30363d;
+            border-radius:10px; padding:20px; position:relative;
+            transition: border-color 0.3s; }
+    .vaga.ocupada  { border-color:#f39c12; }
+    .vaga.livre    { border-color:#30363d; }
+    .vaga.concluida{ border-color:#27ae60; }
+    .vaga-num { font-size:0.72rem; color:#8b949e;
+                text-transform:uppercase; letter-spacing:1px; }
+    .vaga-status { display:inline-block; padding:3px 10px;
+                   border-radius:12px; font-size:0.75rem;
+                   font-weight:700; margin-bottom:10px; }
+    .vaga-status.ocupada  { background:#4d3319; color:#f39c12; }
+    .vaga-status.livre    { background:#1c2128; color:#8b949e; }
+    .vaga-status.concluida{ background:#1a3a27; color:#3fb950; }
+    .vaga-veiculo { font-size:1.05rem; font-weight:600;
+                    color:#e6edf3; margin-bottom:4px; }
+    .vaga-user  { font-size:0.82rem; color:#8b949e; margin-bottom:12px; }
+    .vaga-stats { display:grid; grid-template-columns:1fr 1fr;
+                  gap:8px; }
+    .stat { background:#0d1117; border-radius:6px; padding:8px 10px; }
+    .stat .sl { font-size:0.68rem; color:#8b949e; }
+    .stat .sv { font-size:0.95rem; font-weight:600; color:#58a6ff; }
+    .alerta { background:#4d1919; color:#ff7b72;
+              border-radius:6px; padding:6px 10px;
+              font-size:0.78rem; margin-top:10px; }
+    .fila-box { background:#1c2128; border:1px solid #f39c12;
+                border-radius:8px; padding:10px 14px;
+                margin-top:10px; color:#f39c12;
+                font-size:0.82rem; }
+    .footer { text-align:center; padding:20px;
+              color:#484f58; font-size:0.78rem; }
+    .pulse { animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0%,100% { opacity:1; } 50% { opacity:0.5; } }
+  </style>
+</head>
+<body>
+<div class='header'>
+  <h1>⚡ ChargeGrid <span>Intelligence</span></h1>
+  <div style='display:flex;gap:10px;flex-wrap:wrap;'>
+    <span class='badge'>🕐 Atualizado: <b>21/09/2026 23:37:34</b></span>
+    <span class='badge'>📡 OCPP 1.6 ativo</span>
+    <span class='badge'>⏱ Recarrega em <b>5s</b></span>
+  </div>
+</div>
+<div class='container'>
+<div class='cards'>
+  <div class='card'>
+    <div class='label'>Vagas Livres</div>
+    <div class='value' style='color:#3fb950'>4/5</div>
+    <div class='sub'>disponíveis agora</div>
+  </div>
+  <div class='card'>
+    <div class='label'>Sessões Ativas</div>
+    <div class='value' style='color:#f39c12'>1</div>
+    <div class='sub'>veículos carregando</div>
+  </div>
+  <div class='card'>
+    <div class='label'>Energia Fornecida</div>
+    <div class='value'>97.0</div>
+    <div class='sub'>kWh no total</div>
+  </div>
+  <div class='card'>
+    <div class='label'>Faturamento</div>
+    <div class='value' style='color:#3fb950'>R$81</div>
+    <div class='sub'>arrecadado</div>
+  </div>
+</div>
+<div class='demanda-box'>
+  <h3>⚡ Carga da Rede Elétrica — 9.0 kW / 60 kW</h3>
+  <div class='bar-bg'>
+    <div class='bar-fill'>15%</div>
+  </div>
+</div>
+<div class='demanda-box'>
+  <h3>📊 Historico de Sessoes — 1 de 100 posicoes do vetor</h3>
+  <div class='vaga-stats' style='grid-template-columns:repeat(auto-fit,minmax(150px,1fr));'>
+    <div class='stat'><div class='sl'>Sessoes realizadas</div>      <div class='sv'>1</div></div>
+    <div class='stat'><div class='sl'>Energia fornecida</div>      <div class='sv'>40.00 kWh</div></div>
+    <div class='stat'><div class='sl'>Faturamento</div>      <div class='sv'>R$ 32.30</div></div>
+    <div class='stat'><div class='sl'>Ticket medio</div>      <div class='sv'>R$ 32.30</div></div>
+    <div class='stat'><div class='sl'>Maior consumo</div>      <div class='sv'>40.00 kWh</div></div>
+    <div class='stat'><div class='sl'>Menor consumo</div>      <div class='sv'>40.00 kWh</div></div>
+  </div>
+</div>
+<div class='vagas-grid'>
+  <div class='vaga concluida'>
+    <div class='vaga-num'>VAGA 1</div>
+    <span class='vaga-status concluida'>✓ CONCLUÍDO</span>
+    <div class='vaga-veiculo'>byd uno</div>
+    <div class='vaga-user'>👤 Enzo</div>
+    <div class='vaga-stats'>
+      <div class='stat'><div class='sl'>Energia</div>        <div class='sv'>40.00 kWh</div></div>
+      <div class='stat'><div class='sl'>Custo final</div>        <div class='sv'>R$ 32.30</div></div>
+    </div>
+  </div>
+  <div class='vaga ocupada'>
+    <div class='vaga-num'>VAGA 2</div>
+    <span class='vaga-status ocupada'>● CARREGANDO</span>
+    <div class='vaga-veiculo'>Corsa</div>
+    <div class='vaga-user'>👤 Russi</div>
+    <div style='margin-bottom:12px;'>
+      <div style='font-size:0.72rem;color:#8b949e;margin-bottom:4px;'>        Progresso da recarga</div>
+      <div class='bar-bg' style='height:12px;'>
+        <div class='bar-fill' style='background:#58a6ff;height:12px;             font-size:0.65rem;width:1%;min-width:0;'>1%</div>
+      </div>
+    </div>
+    <div class='vaga-stats'>
+      <div class='stat'><div class='sl'>Potência</div>        <div class='sv'>9.0 kW</div></div>
+      <div class='stat'><div class='sl'>Energia</div>        <div class='sv'>57.00 kWh</div></div>
+      <div class='stat'><div class='sl'>Custo atual</div>        <div class='sv'>R$ 48.45</div></div>
+      <div class='stat'><div class='sl'>Resta</div>        <div class='sv'>~377 min</div></div>
+    </div>
+  </div>
+  <div class='vaga livre'>
+    <div class='vaga-num'>VAGA 3</div>
+    <span class='vaga-status livre'>○ LIVRE</span>
+    <div style='color:#484f58;font-size:0.9rem;margin-top:10px;'>Aguardando veículo...</div>
+  </div>
+  <div class='vaga livre'>
+    <div class='vaga-num'>VAGA 4</div>
+    <span class='vaga-status livre'>○ LIVRE</span>
+    <div style='color:#484f58;font-size:0.9rem;margin-top:10px;'>Aguardando veículo...</div>
+  </div>
+  <div class='vaga livre'>
+    <div class='vaga-num'>VAGA 5</div>
+    <span class='vaga-status livre'>○ LIVRE</span>
+    <div style='color:#484f58;font-size:0.9rem;margin-top:10px;'>Aguardando veículo...</div>
+  </div>
+</div>
+<div class='footer'>
+  ChargeGrid Intelligence • EV Challenge 2026 • FIAP × GoodWe •  Esta página atualiza automaticamente a cada 5 segundos
+</div>
+</div>
+</body></html>

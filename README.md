@@ -129,7 +129,9 @@ Modelo L(p) = −35p² + 298,5p − 406, com 1,5 ≤ p ≤ 6,5, representando o 
 
 ## Vídeo de demonstração
 
-[Link do vídeo no YouTube — não listado]
+[\[Link do vídeo no YouTube — não listado\]](https://youtu.be/6gE17DYjLYs)
+[\[Link do vídeo no YouTube — não listado\]](https://youtu.be/yZ86Z-Tfa6E)
+
 
 ## Entregáveis desta sprint
 
